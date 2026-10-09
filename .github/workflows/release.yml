@@ -75,6 +75,8 @@ jobs:
           security import "$RUNNER_TEMP/molinova.p12" -k "$KC" -P "$P12_PASSWORD" -T /usr/bin/codesign
           rm -f "$RUNNER_TEMP/molinova.p12"
           security set-key-partition-list -S apple-tool:,apple: -s -k "$KC_PASSWORD" "$KC" > /dev/null
+          # codesign ne trouve la clé que si le trousseau est aussi dans la liste de recherche (--keychain ne suffit pas).
+          security list-keychains -d user -s "$KC" $(security list-keychains -d user | tr -d '"')
           HASH=$(security find-certificate -c Molinova -Z "$KC" | awk '/SHA-1/ { print $3 }' | head -1)
           [ -n "$HASH" ] || { echo "Certificat « Molinova » introuvable dans le secret" >&2; exit 1; }
           echo "MOLINOVA_SIGN_HASH=$HASH" >> "$GITHUB_ENV"
