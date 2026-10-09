@@ -93,14 +93,16 @@ jobs:
           codesign --verify --deep --strict --verbose=2 release/mac-arm64/Molinova.app
           codesign -dr - release/mac-arm64/Molinova.app
           if [ -n "${MOLINOVA_SIGN_HASH:-}" ]; then
-            codesign -dr - release/mac-arm64/Molinova.app 2>&1 | grep -qi "certificate leaf = H\"$MOLINOVA_SIGN_HASH\"" || { echo "L'app n'est pas signée « Molinova »" >&2; exit 1; }
+            # Auto-signé : le certificat est sa propre racine, macOS écrit « certificate root = H"<empreinte>" ».
+            codesign -dr - release/mac-arm64/Molinova.app 2>&1 | grep -qiE "certificate (leaf|root) = H\"$MOLINOVA_SIGN_HASH\"" || { echo "L'app n'est pas signée « Molinova »" >&2; exit 1; }
           fi
       - name: Effacer le trousseau de signature
         if: always()
         run: '[ -z "${MOLINOVA_SIGN_KEYCHAIN:-}" ] || security delete-keychain "$MOLINOVA_SIGN_KEYCHAIN"' 
       - name: Vérifier les fusibles d'Electron
         run: |
-          FUSES=$(npx --yes @electron/fuses@1.8.0 read --app release/mac-arm64/Molinova.app)
+          # Hors du dossier du projet : dans un dépôt pnpm, npx ne trouve pas l'exécutable electron-fuses.
+          FUSES=$(cd "$RUNNER_TEMP" && npx --yes @electron/fuses@1.8.0 read --app "$GITHUB_WORKSPACE/release/mac-arm64/Molinova.app")
           echo "$FUSES"
           for f in RunAsNode EnableNodeOptionsEnvironmentVariable EnableNodeCliInspectArguments; do
             echo "$FUSES" | grep -q "$f is Disabled" || { echo "Fusible $f pas désactivé" >&2; exit 1; }
