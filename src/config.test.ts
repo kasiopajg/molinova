@@ -75,10 +75,10 @@ describe("réglages de l'app (app.json)", () => {
 });
 
 describe("état de l'assistant", () => {
-  const none = { appMode: false, gateway: false, google: false, account: false, context: false, finished: false };
+  const none = { appMode: false, terms: true, gateway: false, google: false, account: false, context: false, finished: false };
   it("installation neuve : rien de fait", async () => {
     const { setupState } = await loadConfig(freshHome());
-    expect(setupState(none)).toEqual({ complete: false, appMode: false, steps: { gateway: false, google: false, account: false, context: false, finished: false } });
+    expect(setupState({ ...none, terms: false })).toEqual({ complete: false, appMode: false, steps: { terms: false, gateway: false, google: false, account: false, context: false, finished: false } });
     expect(setupState({ ...none, appMode: true }).appMode).toBe(true);
   });
   it("installation existante complète sans « terminer »", async () => {
@@ -91,5 +91,10 @@ describe("état de l'assistant", () => {
   it("« terminer » suffit", async () => {
     const { setupState } = await loadConfig(freshHome());
     expect(setupState({ ...none, finished: true }).complete).toBe(true);
+  });
+  it("rien n'est complet sans les conditions acceptées : une installation existante les accepte une fois", async () => {
+    const { setupState } = await loadConfig(freshHome());
+    expect(setupState({ ...none, terms: false, finished: true }).complete).toBe(false);
+    expect(setupState({ ...none, terms: false, gateway: true, google: true, account: true, context: true }).complete).toBe(false);
   });
 });

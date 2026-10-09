@@ -753,3 +753,9 @@ a.chcard:hover { background: #fff; border-color: var(--g200); }
 /* Nouvelle version disponible : en haut de chaque écran, un trait du signal à gauche. */
 .updbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; border-left: 3px solid var(--signal); }
 .updbar .spacer { flex: 1; }
+
+/* Assistant : la case des conditions d'utilisation, trait du signal tant qu'elle n'est pas cochée. */
+.setup-terms { display: flex; flex-direction: column; gap: 8px; border-left: 3px solid var(--signal); }
+.setup-terms.done { border-left-color: var(--ink); }
+.setup-terms label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; font-weight: 500; }
+.setup-terms input { margin-top: 4px; flex: none; }

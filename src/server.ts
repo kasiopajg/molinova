@@ -8,7 +8,7 @@ import http from "node:http";
 import path from "node:path";
 import open from "open";
 import { GatewayAuthenticationError, GatewayForbiddenError, createGateway } from "@ai-sdk/gateway";
-import { APP_MODE, MOLINOVA_PAGES, PATHS, ROOT, isLanguage, loadAppSettings, loadContext, postToMain, saveAppSettings, setupState, systemTimeZone, loadRules, loadSettings, loadTaxonomy, parseContext, parseRules, parseSettings, parseTaxonomy, saveRules, saveSettings, saveTaxonomy, type Rule, type Settings } from "./config.js";
+import { APP_MODE, MOLINOVA_PAGES, PATHS, ROOT, TERMS_VERSION, isLanguage, loadAppSettings, loadContext, postToMain, saveAppSettings, setupState, systemTimeZone, loadRules, loadSettings, loadTaxonomy, parseContext, parseRules, parseSettings, parseTaxonomy, saveRules, saveSettings, saveTaxonomy, type Rule, type Settings } from "./config.js";
 import { GmailConnector, MAX_ATTACH_BYTES, SCOPE_CALENDAR, SCOPE_CALENDAR_CREATE, SCOPE_CALENDAR_LIST, SCOPE_DRAFTS, SCOPE_DRIVE_READ, authorizeNewAccount, cancelPendingAuthorization, currentGoogleClientId, gmailStatus, googleClientSource, hasToken, parseGoogleClient, scopesForAccount } from "./connectors/gmail.js";
 import { calendarTemplateUrl, createCalendar, createCalendarEvent, findByIcalUid, listCalendars, listEvents, respondToInvite, type CalendarInfo, type EventDraft, type RsvpStatus, deleteCalendarEvent, patchEventProps } from "./connectors/calendar.js";
 import { myPartstat, parseIcs, type IcsInvite } from "./core/ics.js";
@@ -2280,8 +2280,10 @@ route("GET", "/api/activity", (_m, _req, url) => {
 // ---------- premier lancement : l'assistant
 function computeSetup() {
   const db = openDb();
+  const accepted = kvGet<{ version: string; at: string } | null>(db, "terms.accepted", null);
   return setupState({
     appMode: APP_MODE,
+    terms: accepted?.version === TERMS_VERSION,
     gateway: !!getSecret("AI_GATEWAY_API_KEY"),
     google: googleClientSource() !== null,
     account: listAccounts(db).some((a) => a.source === "gmail" && hasToken(a.email)),
@@ -2289,7 +2291,16 @@ function computeSetup() {
     finished: kvGet(db, "setup.finished", false),
   });
 }
-route("GET", "/api/setup/state", () => computeSetup());
+/** L'état de l'assistant pour l'interface : avec l'adresse des conditions d'utilisation, pour le lien sous la case. */
+const setupForUi = () => ({ ...computeSetup(), termsUrl: MOLINOVA_PAGES.terms });
+route("GET", "/api/setup/state", () => setupForUi());
+
+/** Les conditions d'utilisation acceptées au premier écran : la version et le moment, gardés dans la base. */
+route("POST", "/api/setup/terms", (_m, _req, _url, body) => {
+  if ((body as { accept?: unknown } | null)?.accept !== true) fail("err.badBody", undefined, 400);
+  kvSet(openDb(), "terms.accepted", { version: TERMS_VERSION, at: new Date().toISOString() });
+  return setupForUi();
+});
 
 /**
  * Les pages publiques de Molinova (MOLINOVA_PAGES) répondent-elles ? Tant que le dépôt est privé, non : l'assistant propose

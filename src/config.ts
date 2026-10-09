@@ -264,15 +264,22 @@ export function saveAppSettings(patch: Record<string, unknown>): AppSettings {
 }
 
 // ---------- premier lancement (l'assistant)
-export interface SetupInputs { appMode: boolean; gateway: boolean; google: boolean; account: boolean; context: boolean; finished: boolean }
+/**
+ * Version des conditions d'utilisation (site/terms.html) que l'utilisateur accepte au premier écran de l'assistant.
+ * La changer quand les conditions changent sur le fond : chacun les réaccepte une fois au lancement suivant.
+ */
+export const TERMS_VERSION = "2026-10-09";
+export interface SetupInputs { appMode: boolean; terms: boolean; gateway: boolean; google: boolean; account: boolean; context: boolean; finished: boolean }
 export interface SetupState { complete: boolean; appMode: boolean; steps: Omit<SetupInputs, "appMode"> }
 /**
- * Où en est l'installation. Une installation existante (clé, client Google, un compte, un profil context.json) est
- * complète même sans « terminer » : elle ne repasse jamais par l'assistant. Sans profil, c'est une installation neuve
- * au milieu de l'assistant : recharger la page après la connexion de Gmail ne doit pas sauter les dernières étapes.
+ * Où en est l'installation. Rien n'est complet sans les conditions acceptées (dans leur version en cours) : une
+ * installation existante repasse une fois par le premier écran pour les accepter. Ensuite, une installation existante
+ * (clé, client Google, un compte, un profil context.json) est complète même sans « terminer » : elle ne repasse jamais
+ * par l'assistant. Sans profil, c'est une installation neuve au milieu de l'assistant : recharger la page après la
+ * connexion de Gmail ne doit pas sauter les dernières étapes.
  */
 export function setupState(i: SetupInputs): SetupState {
-  const steps = { gateway: i.gateway, google: i.google, account: i.account, context: i.context, finished: i.finished };
-  const complete = i.finished || (i.gateway && i.google && i.account && i.context);
+  const steps = { terms: i.terms, gateway: i.gateway, google: i.google, account: i.account, context: i.context, finished: i.finished };
+  const complete = i.terms && (i.finished || (i.gateway && i.google && i.account && i.context));
   return { complete, appMode: i.appMode, steps };
 }

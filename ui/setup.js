@@ -6,7 +6,7 @@
 
 /** Les étapes, dans l'ordre ; `flag` = la case de state.steps qui la coche, `required` = « Suivant » attend qu'elle le soit. */
 const SETUP_STEPS = [
-  { key: "welcome" },
+  { key: "welcome", flag: "terms", required: true },
   { key: "ai", flag: "gateway", required: true },
   { key: "google", flag: "google", required: true },
   { key: "gmail", flag: "account", required: true },
@@ -29,7 +29,7 @@ function setupMaxIndex(st) {
 /** Où reprendre : bienvenue sur une installation vierge, sinon la première étape pas encore cochée. */
 function setupFirstStep(st) {
   const s = st.steps;
-  if (!s.gateway && !s.google && !s.account && !s.context && !s.finished) return "welcome";
+  if (!s.terms || (!s.gateway && !s.google && !s.account && !s.context && !s.finished)) return "welcome";
   return SETUP_STEPS.find((x) => x.flag && !s[x.flag])?.key || "welcome";
 }
 const setupGo = (key) => { location.hash = "#setup/" + key; };
@@ -92,6 +92,26 @@ function setupMsg(id, text, ok = false) {
 }
 
 // ---------- 01 Bienvenue
+/**
+ * Les conditions d'utilisation : une case à cocher, obligatoire pour passer à la suite (POST /api/setup/terms garde la
+ * version et le moment). Une installation déjà complète qui n'a pas accepté la version en cours revient ici une fois,
+ * puis retourne à l'accueil.
+ */
+function setupTerms() {
+  const ok = !!SETUP.steps.terms;
+  setTimeout(() => $("#sterms")?.addEventListener("change", async (e) => {
+    if (!e.target.checked) return;
+    e.target.disabled = true;
+    try {
+      SETUP = await api("/setup/terms", { method: "POST", body: { accept: true } });
+      if (SETUP.complete) location.hash = "#home"; else route();
+    } catch (err) { toast(err.message); e.target.checked = false; e.target.disabled = false; }
+  }));
+  return `<div class="card setup-terms ${ok ? "done" : ""}">
+    <label><input type="checkbox" id="sterms" ${ok ? "checked disabled" : ""}><span>${h(t("setup.terms.text"))}</span></label>
+    <div class="small">${SETUP.termsUrl ? extLink(SETUP.termsUrl, t("setup.terms.read")) : ""}${ok ? ` · <span class="muted">${h(t("setup.terms.accepted"))}</span>` : ""}</div>
+  </div>`;
+}
 function setupWelcome() {
   setTimeout(() => {
     $("#slang")?.addEventListener("change", async (e) => {
@@ -119,6 +139,7 @@ function setupWelcome() {
       ${col(t("setup.welcome.ai.title"), [t("setup.welcome.ai.what"), t("setup.welcome.ai.gateway"), t("setup.welcome.ai.zdr")])}
     </div>
     ${setupPermissions()}
+    ${setupTerms()}
     <div class="row" style="align-items:flex-end;flex-wrap:wrap;gap:16px">
       <label class="field" style="width:220px"><span class="mono">${h(t("setup.welcome.lang"))}</span><select id="slang">${["fr", "en", "es"].map((k) => `<option value="${k}" ${I18N.lang === k ? "selected" : ""}>${h(t("lang." + k))}</option>`).join("")}</select></label>
       <div class="small muted grow" style="padding-bottom:10px">${h(t("setup.welcome.needs"))}</div>
