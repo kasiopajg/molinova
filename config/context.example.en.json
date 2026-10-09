@@ -1,0 +1,57 @@
+{
+  "owner": {
+    "name": "Alex Martin",
+    "emails": [
+      "alex.martin@example.com",
+      "alex@work.example.org"
+    ],
+    "languages": [
+      "fr",
+      "en",
+      "es"
+    ],
+    "timezone": "Europe/Madrid"
+  },
+  "family": {
+    "children": [
+      {
+        "name": "[First name 1]",
+        "school": "[School, class]",
+        "activities": [
+          "[Club, sport, day]"
+        ]
+      },
+      {
+        "name": "[First name 2]",
+        "school": "[School, class]",
+        "activities": []
+      },
+      {
+        "name": "[First name 3]",
+        "school": "[School, class]",
+        "activities": []
+      }
+    ],
+    "schoolDomains": [],
+    "activityDomains": []
+  },
+  "keyPeople": [
+    {
+      "name": "[First name]",
+      "relation": "Spouse",
+      "emails": [],
+      "effect": "Always a priority"
+    },
+    {
+      "name": "Accounting firm",
+      "relation": "Accountant",
+      "emails": [],
+      "effect": "Finance, reply expected"
+    }
+  ],
+  "projects": [
+    "Acme (client.example.com website)",
+    "Freelance consulting"
+  ],
+  "instructions": "An email from the school that mentions a date or a payment gets High priority."
+}

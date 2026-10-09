@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- Icône Molinova : grille macOS (carré arrondi de 824 centré), encre, « m » géométrique blanc cassé, point rouge signal. -->
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <rect x="100" y="100" width="824" height="824" rx="185" ry="185" fill="#1b1c1f" filter="url(#shadow)"/>
+  <rect x="101" y="101" width="822" height="822" rx="184" ry="184" fill="none" stroke="#ffffff" stroke-opacity="0.07" stroke-width="2"/>
+  <path d="M282 672 V480 A90 90 0 0 1 462 480 V672 M462 480 A90 90 0 0 1 642 480 V672"
+        fill="none" stroke="#fbfbfc" stroke-width="64" stroke-linecap="butt" stroke-linejoin="round"/>
+  <circle cx="742" cy="636" r="36" fill="#ff3b30"/>
+</svg>

@@ -1,0 +1,57 @@
+{
+  "owner": {
+    "name": "Alex Martin",
+    "emails": [
+      "alex.martin@example.com",
+      "alex@work.example.org"
+    ],
+    "languages": [
+      "fr",
+      "en",
+      "es"
+    ],
+    "timezone": "Europe/Madrid"
+  },
+  "family": {
+    "children": [
+      {
+        "name": "[Prénom 1]",
+        "school": "[École, classe]",
+        "activities": [
+          "[Club, sport, jour]"
+        ]
+      },
+      {
+        "name": "[Prénom 2]",
+        "school": "[École, classe]",
+        "activities": []
+      },
+      {
+        "name": "[Prénom 3]",
+        "school": "[École, classe]",
+        "activities": []
+      }
+    ],
+    "schoolDomains": [],
+    "activityDomains": []
+  },
+  "keyPeople": [
+    {
+      "name": "[Prénom]",
+      "relation": "Conjoint·e",
+      "emails": [],
+      "effect": "Toujours prioritaire"
+    },
+    {
+      "name": "Cabinet comptable",
+      "relation": "Comptable",
+      "emails": [],
+      "effect": "Finance, réponse attendue"
+    }
+  ],
+  "projects": [
+    "Acme (site web client.example.com)",
+    "Conseil indépendant"
+  ],
+  "instructions": "Un email de l'école qui mentionne une date ou un paiement passe en priorité Haute."
+}

@@ -1,0 +1,130 @@
+# Molinova.app : pnpm app:dist (build + native:electron + electron-builder). Voir docs/desktop-app.md.
+appId: io.github.kasiopajg.molinova
+productName: Molinova
+copyright: Copyright © 2026 Kasiopa SAS
+
+directories:
+  output: release
+  buildResources: build
+
+# Un seul node_modules, deux ABI : on ne recompile JAMAIS node_modules sur place (le serveur de dev en a besoin tel quel).
+# Le binaire better-sqlite3 pour Electron vient de pnpm native:electron (build/native/…).
+npmRebuild: false
+nodeGypRebuild: false
+buildDependenciesFromSource: false
+
+# Pas d'electron-updater : la vérification de mise à jour lit l'API GitHub (desktop/main.ts), la Release est créée par la CI.
+publish: null
+
+asar: true
+asarUnpack:
+  - "**/*.node"
+
+# Liste blanche : le code compilé, l'interface, les modèles de config et les dépendances de production.
+# Les données privées du dépôt (le dépôt sert aussi de dossier de données en dev) sont exclues explicitement.
+files:
+  - package.json
+  - LICENSE
+  - THIRD_PARTY_NOTICES.md
+  - dist/**
+  - dist-desktop/**
+  - ui/**
+  - config/context.example*.json
+  - "!config/context.json"
+  - "!config/settings.json"
+  - "!config/taxonomy.json"
+  - "!config/doc-taxonomy.json"
+  - "!config/rules.json"
+  - "!config/app.json"
+  - "!data{,/**}"
+  - "!tokens{,/**}"
+  - "!credentials{,/**}"
+  - "!logs{,/**}"
+  - "!ideas{,/**}"
+  - "!release{,/**}"
+  - "!src{,/**}"
+  - "!docs{,/**}"
+  - "!scripts{,/**}"
+  - "!desktop{,/**}"
+  - "!build{,/**}"
+  - "!.github{,/**}"
+  - "!.claude{,/**}"
+  - "!**/.env*"
+  - "!**/secrets.bin"
+  - "!PLAN-*"
+  - "!.backup-*"
+  - "!**/*.test.*"
+  - "!**/*.map"
+  - "!**/*.d.ts"
+  # better-sqlite3 : ni sources C, ni binaire Node (ABI de Node 20, inutilisable dans l'app)
+  - "!**/node_modules/better-sqlite3/{deps,src,build}{,/**}"
+  # à la place, le binaire Electron à l'emplacement standard (repli pour tout `new Database()` sans nativeBinding)
+  - from: build/native/darwin-arm64
+    to: node_modules/better-sqlite3/build/Release
+    filter:
+      - better_sqlite3.node
+
+extraResources:
+  # MOLINOVA_SQLITE_BINDING = Resources/native/better_sqlite3.node (posé par desktop/main.ts)
+  - from: build/native/darwin-arm64/better_sqlite3.node
+    to: native/better_sqlite3.node
+  # MOLINOVA_TEXT_BIN = Resources/native/molinova-text : texte des PDF et OCR de macOS (pnpm native:text)
+  - from: build/native/darwin-arm64/molinova-text
+    to: native/molinova-text
+  - from: build/trayTemplate.png
+    to: trayTemplate.png
+  - from: build/trayTemplate@2x.png
+    to: trayTemplate@2x.png
+  # Avis de licence d'Electron, de Chromium et de Node.js (electron-builder les retire de l'app sur mac) :
+  # présents dans node_modules/electron/dist une fois le binaire d'Electron téléchargé.
+  - from: node_modules/electron/dist/LICENSE
+    to: LICENSE.electron.txt
+  - from: node_modules/electron/dist/LICENSES.chromium.html
+    to: LICENSES.chromium.html
+
+# Fusibles d'Electron : aucun autre processus ne peut faire tourner du code sous l'identité de Molinova
+# (ELECTRON_RUN_AS_NODE, NODE_OPTIONS, --inspect), ce qui contournerait le trousseau (secrets.bin) et les accès
+# accordés à Molinova (conteneur WhatsApp). utilityProcess.fork n'a pas besoin de RunAsNode.
+electronFuses:
+  runAsNode: false
+  enableNodeOptionsEnvironmentVariable: false
+  enableNodeCliInspectArguments: false
+  onlyLoadAppFromAsar: true
+  enableEmbeddedAsarIntegrityValidation: true
+  enableCookieEncryption: true
+
+mac:
+  category: public.app-category.productivity
+  icon: build/icon.icns
+  target:
+    - target: dmg
+      arch: arm64
+  # Pas de certificat Apple : signature ad hoc (obligatoire sur Apple Silicon), pas de notarisation.
+  # Runtime renforcé laissé de côté : sans Team ID, la validation des bibliothèques refuserait le binaire SQLite
+  # (il faudrait disable-library-validation, ce qui en annule l'intérêt) ; les fusibles ci-dessus couvrent l'injection.
+  identity: "-"
+  hardenedRuntime: false
+  gatekeeperAssess: false
+  notarize: false
+  extendInfo:
+    LSUIElement: false
+  # Les langues de l'interface (menus natifs, dialogues) : allège l'app des autres locales de Chromium.
+  electronLanguages:
+    - en
+    - fr
+    - es
+
+dmg:
+  writeUpdateInfo: false
+  title: "Molinova ${version}"
+  artifactName: "Molinova-${version}-${arch}.${ext}"
+  contents:
+    - x: 150
+      y: 190
+    - x: 390
+      y: 190
+      type: link
+      path: /Applications
+  window:
+    width: 540
+    height: 380

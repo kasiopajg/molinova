@@ -1,0 +1,45 @@
+# Secrets
+.env*
+molinova-signing.*
+!.env.example
+*.p12
+*.keychain-db
+session.key
+credentials/
+tokens/
+secrets.bin
+
+node_modules/
+
+# Données locales (mode dev : le dépôt sert aussi de dossier de données)
+data/
+logs/
+config/context.json
+config/settings.json
+config/taxonomy.json
+config/doc-taxonomy.json
+config/rules.json
+config/app.json
+*.log
+
+# Builds
+dist/
+dist-desktop/
+release/
+out/
+
+# Fichiers privés de l'auteur, jamais publiés
+ideas/
+PLAN-*.md
+.backup-*
+.claude/
+.DS_Store
+coverage/
+.vscode/
+.idea/
+
+# Binaire better-sqlite3 pour Electron (pnpm native:electron)
+build/native/
+
+# Installation vierge pour tester le lanceur (launch.json « ui-fresh »)
+.preview-home/

@@ -1,0 +1,131 @@
+# Tag v* posé sur main → Molinova-<version>-arm64.dmg joint à une Release GitHub en brouillon. Le brouillon n'est vu par
+# aucune app installée : seul le mainteneur le publie, à la main, après l'avoir vérifié (voir CONTRIBUTING.md, Releases).
+# Signé avec le certificat auto-signé « Molinova » (scripts/make-release-cert.sh) quand l'environnement « release »
+# en fournit les secrets, sinon ad hoc ; jamais notarisé. Même certificat d'une version à l'autre = même app pour macOS :
+# l'accès au trousseau (« Molinova Safe Storage ») n'est pas redemandé aux utilisateurs à chaque mise à jour.
+# Deux jobs : la construction (dépendances, tests, compilation native) tourne en lecture seule, sans jeton d'écriture ;
+# seul le job « release » écrit dans le dépôt, et il ne fait que télécharger le .dmg et créer la Release.
+# Actions épinglées par SHA de commit (le tag indiqué en commentaire).
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions: {}
+
+jobs:
+  build:
+    runs-on: macos-14
+    # Les secrets de signature vivent dans l'environnement « release », réglé avec un relecteur obligatoire :
+    # aucune construction ne peut signer sans l'accord du mainteneur.
+    environment: release
+    permissions:
+      contents: read
+    env:
+      # electron-builder ne cherche aucune identité : la signature « Molinova » est posée à la main, plus bas.
+      CSC_IDENTITY_AUTO_DISCOVERY: "false"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+          # Tout l'historique et les branches : il faut origin/main pour le contrôle ci-dessous.
+          fetch-depth: 0
+      # Une version ne se construit que depuis main : un tag posé sur une autre branche (ou une branche de PR) est refusé.
+      - name: Le tag pointe sur main
+        run: |
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "Le tag $GITHUB_REF_NAME ($GITHUB_SHA) n'est pas sur main : refusé." >&2
+            exit 1
+          fi
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          version: 10
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Tag = version de package.json
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if [ "v$VERSION" != "$GITHUB_REF_NAME" ]; then
+            echo "Le tag $GITHUB_REF_NAME ne correspond pas à package.json ($VERSION)" >&2
+            exit 1
+          fi
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+      # Binaire d'Electron (pnpm ne lance pas son script d'installation) : ses avis de licence partent dans l'app.
+      - run: node node_modules/electron/install.js
+      - run: pnpm native:electron
+      - run: pnpm native:text
+      - name: Certificat « Molinova » dans un trousseau jetable
+        env:
+          P12: ${{ secrets.MOLINOVA_SIGNING_P12 }}
+          P12_PASSWORD: ${{ secrets.MOLINOVA_SIGNING_PASSWORD }}
+        run: |
+          if [ -z "$P12" ]; then echo "Pas de secret MOLINOVA_SIGNING_P12 : signature ad hoc."; exit 0; fi
+          KC="$RUNNER_TEMP/molinova-signing.keychain-db"
+          KC_PASSWORD=$(openssl rand -hex 24)
+          printf '%s' "$P12" | base64 --decode > "$RUNNER_TEMP/molinova.p12"
+          security create-keychain -p "$KC_PASSWORD" "$KC"
+          security set-keychain-settings -lut 3600 "$KC"
+          security unlock-keychain -p "$KC_PASSWORD" "$KC"
+          security import "$RUNNER_TEMP/molinova.p12" -k "$KC" -P "$P12_PASSWORD" -T /usr/bin/codesign
+          rm -f "$RUNNER_TEMP/molinova.p12"
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$KC_PASSWORD" "$KC" > /dev/null
+          HASH=$(security find-certificate -c Molinova -Z "$KC" | awk '/SHA-1/ { print $3 }' | head -1)
+          [ -n "$HASH" ] || { echo "Certificat « Molinova » introuvable dans le secret" >&2; exit 1; }
+          echo "MOLINOVA_SIGN_HASH=$HASH" >> "$GITHUB_ENV"
+          echo "MOLINOVA_SIGN_KEYCHAIN=$KC" >> "$GITHUB_ENV"
+      # 1. l'app (signée ad hoc par electron-builder, fusibles posés) ; 2. la signature « Molinova » ;
+      # 3. le .dmg à partir de cette app, sans la re-signer (identity null).
+      - run: pnpm exec electron-builder --mac dir --arm64 --publish never
+      - name: Signer avec « Molinova »
+        if: env.MOLINOVA_SIGN_HASH != ''
+        run: codesign --force --deep --sign "$MOLINOVA_SIGN_HASH" --keychain "$MOLINOVA_SIGN_KEYCHAIN" release/mac-arm64/Molinova.app
+      - run: pnpm exec electron-builder --mac dmg --arm64 --publish never --prepackaged release/mac-arm64/Molinova.app -c.mac.identity=null
+      - name: Vérifier la signature
+        run: |
+          codesign --verify --deep --strict --verbose=2 release/mac-arm64/Molinova.app
+          codesign -dr - release/mac-arm64/Molinova.app
+          if [ -n "${MOLINOVA_SIGN_HASH:-}" ]; then
+            codesign -dr - release/mac-arm64/Molinova.app 2>&1 | grep -qi "certificate leaf = H\"$MOLINOVA_SIGN_HASH\"" || { echo "L'app n'est pas signée « Molinova »" >&2; exit 1; }
+          fi
+      - name: Effacer le trousseau de signature
+        if: always()
+        run: '[ -z "${MOLINOVA_SIGN_KEYCHAIN:-}" ] || security delete-keychain "$MOLINOVA_SIGN_KEYCHAIN"' 
+      - name: Vérifier les fusibles d'Electron
+        run: |
+          FUSES=$(npx --yes @electron/fuses@1.8.0 read --app release/mac-arm64/Molinova.app)
+          echo "$FUSES"
+          for f in RunAsNode EnableNodeOptionsEnvironmentVariable EnableNodeCliInspectArguments; do
+            echo "$FUSES" | grep -q "$f is Disabled" || { echo "Fusible $f pas désactivé" >&2; exit 1; }
+          done
+          for f in OnlyLoadAppFromAsar EnableEmbeddedAsarIntegrityValidation EnableCookieEncryption; do
+            echo "$FUSES" | grep -q "$f is Enabled" || { echo "Fusible $f pas activé" >&2; exit 1; }
+          done
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: dmg
+          path: release/*.dmg
+          if-no-files-found: error
+          retention-days: 7
+
+  release:
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: dmg
+          path: release
+      - name: Release en brouillon
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: gh release create "$TAG" --draft --generate-notes release/*.dmg

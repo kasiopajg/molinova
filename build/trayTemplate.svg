@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+  <!-- Icône de la barre des menus (image « template » : noir sur transparent, macOS l'adapte au thème). -->
+  <path d="M2.5 14 V7.75 A2.25 2.25 0 0 1 7 7.75 V14 M7 7.75 A2.25 2.25 0 0 1 11.5 7.75 V14"
+        fill="none" stroke="#000" stroke-width="2" stroke-linecap="butt" stroke-linejoin="round"/>
+  <circle cx="14.9" cy="12.9" r="1.3" fill="#000"/>
+</svg>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Molinova terms of service</title>
+<meta name="description" content="Molinova terms of service: MIT License, provided as is, without warranty.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6' fill='%23ff3b30'/%3E%3C/svg%3E">
+<style>
+@font-face { font-family: "Outfit"; font-weight: 400; font-style: normal; font-display: swap; src: url(fonts/outfit-latin-400-normal.woff2) format("woff2"); }
+@font-face { font-family: "Outfit"; font-weight: 600; font-style: normal; font-display: swap; src: url(fonts/outfit-latin-600-normal.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-weight: 400; font-style: normal; font-display: swap; src: url(fonts/ibm-plex-mono-latin-400-normal.woff2) format("woff2"); }
+:root {
+  --ink: #1b1c1f; --paper: #fbfbfc; --signal: #ff3b30;
+  --g100: #e9ebee; --g200: #d8dbdf; --g600: #6f747c; --g800: #3c3f45;
+  --sans: "Outfit", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --ink: #eceef1; --paper: #141518; --g100: #24262b; --g200: #34373d; --g600: #9aa0a8; --g800: #c9cdd3; }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 var(--sans); }
+/* Une section par langue ; #fr dans l'adresse affiche le français. */
+.lang { max-width: 720px; margin: 0 auto; padding: 28px 16px 64px; scroll-margin-top: 100vh; }
+#fr { display: none; }
+#fr:target { display: block; }
+body:has(#fr:target) #en { display: none; }
+header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 2px solid var(--ink); }
+.wordmark { font-weight: 600; font-size: 26px; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; }
+.stop { color: var(--signal); }
+nav { display: flex; gap: 6px 18px; flex-wrap: wrap; align-items: baseline; font-size: 15px; }
+nav a { color: var(--g600); text-decoration: none; }
+nav a:hover { color: var(--ink); }
+nav a[aria-current="page"] { color: var(--ink); font-weight: 600; }
+nav .switch { font-family: var(--mono); font-size: 13px; border: 1px solid var(--g200); border-radius: 6px; padding: 1px 8px; }
+.kicker { font-family: var(--mono); font-size: 13px; color: var(--g600); text-transform: uppercase; letter-spacing: 0.06em; margin: 40px 0 6px; }
+h1 { font-size: 40px; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 14px; font-weight: 600; }
+h2 { font-size: 22px; line-height: 1.3; margin: 40px 0 8px; font-weight: 600; }
+p, li { color: var(--g800); }
+p { margin: 0 0 14px; }
+ul { padding-left: 22px; margin: 0 0 14px; }
+li { margin: 4px 0; }
+strong { color: var(--ink); font-weight: 600; }
+a { color: var(--signal); text-underline-offset: 2px; }
+code { font-family: var(--mono); font-size: 0.86em; background: var(--g100); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.lead { font-size: 20px; color: var(--ink); }
+.note { border-left: 3px solid var(--ink); padding: 2px 0 2px 14px; margin: 18px 0; }
+.links { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 0; padding: 0; list-style: none; }
+.links a { display: inline-block; padding: 9px 16px; border-radius: 8px; border: 1px solid var(--g200); color: var(--ink); text-decoration: none; font-weight: 600; }
+.links a.ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.updated { font-family: var(--mono); font-size: 13px; color: var(--g600); }
+footer { margin-top: 56px; padding-top: 14px; border-top: 1px solid var(--g200); font-size: 14px; }
+footer p { color: var(--g600); margin: 0 0 6px; }
+@media (max-width: 520px) { h1 { font-size: 32px; } body { font-size: 16px; } }
+</style>
+</head>
+<body>
+<div class="lang" id="en" lang="en">
+<header><a class="wordmark" href="index.html">Molinova<span class="stop">.</span></a><nav aria-label="Pages"><a href="index.html">Home</a><a href="privacy.html">Privacy</a><a href="terms.html" aria-current="page">Terms</a><a class="switch" href="terms.html#fr" hreflang="fr" lang="fr">FR</a></nav></header>
+<main>
+<p class="kicker">Terms of service</p>
+<h1>Free software, provided as is.</h1>
+<p class="updated">Last updated: 2 October 2026</p>
+<h2>The licence</h2>
+<p>Molinova is free, open-source software published by Kasiopa SAS under the <a href="https://github.com/kasiopajg/molinova/blob/main/LICENSE">MIT License</a>. You may use, copy, modify and distribute it under that licence.</p>
+<h2>No warranty</h2>
+<p>As the licence states, the software is provided <strong>"as is", without warranty of any kind</strong>, express or implied, including the warranties of merchantability, fitness for a particular purpose and non-infringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability arising from the software or its use.</p>
+<h2>No service</h2>
+<p>The publisher runs no service for Molinova: no server, no account, no hosting of your data. There is no commitment to availability or support. Help is offered on a best-effort basis through <a href="https://github.com/kasiopajg/molinova/issues">GitHub issues</a>.</p>
+<h2>Your responsibilities</h2>
+<ul>
+<li><strong>Your Google project</strong>: you create and control your own Google Cloud project and OAuth client, and you are responsible for its settings and for following Google's terms, including the <a href="https://developers.google.com/terms">Google APIs Terms of Service</a> and the <a href="https://developers.google.com/terms/api-services-user-data-policy">User Data Policy</a>.</li>
+<li><strong>Your keys and costs</strong>: your Vercel account, your AI Gateway key and the AI usage it is billed for; your Telegram bot and its token. Keep them secret.</li>
+<li><strong>The data you process</strong>: you choose which mailboxes, chats and household details Molinova reads, including messages from other people, and you are responsible for doing so lawfully.</li>
+<li><strong>Checking the AI's work</strong>: categories, drafts, events and tasks are suggestions and can be wrong. Molinova sends an email only when you click Send.</li>
+</ul>
+<h2>Third-party services</h2>
+<p>Google, Vercel and the AI providers, Telegram, WhatsApp and GitHub are governed by their own terms. Molinova is not affiliated with them.</p>
+<h2>Changes and contact</h2>
+<p>Changes to these terms are published in the <a href="https://github.com/kasiopajg/molinova">GitHub repository</a>. Questions: <a href="https://github.com/kasiopajg/molinova/issues">GitHub issues</a>.</p>
+</main>
+<footer><p>Molinova is an independent open-source project by Kasiopa SAS, under the MIT License. It is not affiliated with Google, Vercel, WhatsApp or Telegram.</p><p><a href="https://github.com/kasiopajg/molinova">Source code</a> · <a href="https://github.com/kasiopajg/molinova/issues">Contact (GitHub issues)</a></p></footer>
+</div>
+<div class="lang" id="fr" lang="fr">
+<header><a class="wordmark" href="index.html#fr">Molinova<span class="stop">.</span></a><nav aria-label="Pages"><a href="index.html#fr">Accueil</a><a href="privacy.html#fr">Confidentialité</a><a href="terms.html#fr" aria-current="page">Conditions</a><a class="switch" href="terms.html#en" hreflang="en" lang="en">EN</a></nav></header>
+<main>
+<p class="kicker">Conditions d'utilisation</p>
+<h1>Un logiciel libre, fourni tel quel.</h1>
+<p class="updated">Dernière mise à jour : 2 octobre 2026</p>
+<h2>La licence</h2>
+<p>Molinova est un logiciel libre et open source publié par Kasiopa SAS sous <a href="https://github.com/kasiopajg/molinova/blob/main/LICENSE">licence MIT</a>. Tu peux l'utiliser, le copier, le modifier et le distribuer selon cette licence.</p>
+<h2>Aucune garantie</h2>
+<p>Comme le dit la licence, le logiciel est fourni <strong>« tel quel », sans garantie d'aucune sorte</strong>, expresse ou implicite, y compris les garanties de qualité marchande, d'adéquation à un usage particulier et d'absence de contrefaçon. En aucun cas les auteurs ou titulaires des droits ne pourront être tenus responsables d'une réclamation, d'un dommage ou d'une autre responsabilité découlant du logiciel ou de son utilisation. Seul le texte anglais de la licence fait foi.</p>
+<h2>Aucun service</h2>
+<p>L'éditeur n'exploite aucun service pour Molinova : ni serveur, ni compte, ni hébergement de tes données. Il n'y a aucun engagement de disponibilité ni d'assistance. L'aide est apportée au mieux, par les <a href="https://github.com/kasiopajg/molinova/issues">tickets GitHub</a>.</p>
+<h2>Ce qui relève de toi</h2>
+<ul>
+<li><strong>Ton projet Google</strong> : tu crées et contrôles ton propre projet Google Cloud et ton client OAuth ; tu es responsable de leurs réglages et du respect des conditions de Google, dont les <a href="https://developers.google.com/terms">conditions d'utilisation des API Google</a> et les <a href="https://developers.google.com/terms/api-services-user-data-policy">règles relatives aux données des utilisateurs</a>.</li>
+<li><strong>Tes clés et tes coûts</strong> : ton compte Vercel, ta clé AI Gateway et l'usage de l'IA qui t'est facturé ; ton bot Telegram et son jeton. Garde-les secrets.</li>
+<li><strong>Les données que tu traites</strong> : tu choisis les boîtes, les conversations et les informations du foyer que Molinova lit, y compris des messages d'autres personnes, et tu es responsable de le faire dans le respect de la loi.</li>
+<li><strong>Vérifier le travail de l'IA</strong> : catégories, brouillons, événements et tâches sont des propositions et peuvent être faux. Molinova n'envoie un email que sur ton clic.</li>
+</ul>
+<h2>Services tiers</h2>
+<p>Google, Vercel et les fournisseurs d'IA, Telegram, WhatsApp et GitHub relèvent de leurs propres conditions. Molinova n'est affilié à aucun d'eux.</p>
+<h2>Modifications et contact</h2>
+<p>Les modifications de ces conditions sont publiées dans le <a href="https://github.com/kasiopajg/molinova">dépôt GitHub</a>. Une question : <a href="https://github.com/kasiopajg/molinova/issues">tickets GitHub</a>.</p>
+</main>
+<footer><p>Molinova est un projet open source indépendant de Kasiopa SAS, sous licence MIT. Il n'est affilié ni à Google, ni à Vercel, ni à WhatsApp, ni à Telegram.</p><p><a href="https://github.com/kasiopajg/molinova">Code source</a> · <a href="https://github.com/kasiopajg/molinova/issues">Contact (tickets GitHub)</a></p></footer>
+</div>
+<script>
+// Navigateur en français et aucune langue choisie : la section française.
+try { if (!location.hash && /^fr\b/i.test(navigator.language || "")) location.replace("#fr"); } catch (e) {}
+</script>
+</body>
+</html>

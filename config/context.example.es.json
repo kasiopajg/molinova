@@ -1,0 +1,57 @@
+{
+  "owner": {
+    "name": "Alex Martin",
+    "emails": [
+      "alex.martin@example.com",
+      "alex@work.example.org"
+    ],
+    "languages": [
+      "fr",
+      "en",
+      "es"
+    ],
+    "timezone": "Europe/Madrid"
+  },
+  "family": {
+    "children": [
+      {
+        "name": "[Nombre 1]",
+        "school": "[Colegio, clase]",
+        "activities": [
+          "[Club, deporte, día]"
+        ]
+      },
+      {
+        "name": "[Nombre 2]",
+        "school": "[Colegio, clase]",
+        "activities": []
+      },
+      {
+        "name": "[Nombre 3]",
+        "school": "[Colegio, clase]",
+        "activities": []
+      }
+    ],
+    "schoolDomains": [],
+    "activityDomains": []
+  },
+  "keyPeople": [
+    {
+      "name": "[Nombre]",
+      "relation": "Pareja",
+      "emails": [],
+      "effect": "Siempre prioritario"
+    },
+    {
+      "name": "Gestoría",
+      "relation": "Contable",
+      "emails": [],
+      "effect": "Finanzas, respuesta esperada"
+    }
+  ],
+  "projects": [
+    "Acme (web client.example.com)",
+    "Consultoría independiente"
+  ],
+  "instructions": "Un correo del colegio que mencione una fecha o un pago pasa a prioridad Alta."
+}

@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Molinova privacy policy</title>
+<meta name="description" content="Molinova privacy policy: the publisher receives no data, everything stays on your Mac. Google API Services User Data Policy and Limited Use.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6' fill='%23ff3b30'/%3E%3C/svg%3E">
+<style>
+@font-face { font-family: "Outfit"; font-weight: 400; font-style: normal; font-display: swap; src: url(fonts/outfit-latin-400-normal.woff2) format("woff2"); }
+@font-face { font-family: "Outfit"; font-weight: 600; font-style: normal; font-display: swap; src: url(fonts/outfit-latin-600-normal.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-weight: 400; font-style: normal; font-display: swap; src: url(fonts/ibm-plex-mono-latin-400-normal.woff2) format("woff2"); }
+:root {
+  --ink: #1b1c1f; --paper: #fbfbfc; --signal: #ff3b30;
+  --g100: #e9ebee; --g200: #d8dbdf; --g600: #6f747c; --g800: #3c3f45;
+  --sans: "Outfit", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --ink: #eceef1; --paper: #141518; --g100: #24262b; --g200: #34373d; --g600: #9aa0a8; --g800: #c9cdd3; }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 var(--sans); }
+/* Une section par langue ; #fr dans l'adresse affiche le français. */
+.lang { max-width: 720px; margin: 0 auto; padding: 28px 16px 64px; scroll-margin-top: 100vh; }
+#fr { display: none; }
+#fr:target { display: block; }
+body:has(#fr:target) #en { display: none; }
+header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 2px solid var(--ink); }
+.wordmark { font-weight: 600; font-size: 26px; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; }
+.stop { color: var(--signal); }
+nav { display: flex; gap: 6px 18px; flex-wrap: wrap; align-items: baseline; font-size: 15px; }
+nav a { color: var(--g600); text-decoration: none; }
+nav a:hover { color: var(--ink); }
+nav a[aria-current="page"] { color: var(--ink); font-weight: 600; }
+nav .switch { font-family: var(--mono); font-size: 13px; border: 1px solid var(--g200); border-radius: 6px; padding: 1px 8px; }
+.kicker { font-family: var(--mono); font-size: 13px; color: var(--g600); text-transform: uppercase; letter-spacing: 0.06em; margin: 40px 0 6px; }
+h1 { font-size: 40px; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 14px; font-weight: 600; }
+h2 { font-size: 22px; line-height: 1.3; margin: 40px 0 8px; font-weight: 600; }
+p, li { color: var(--g800); }
+p { margin: 0 0 14px; }
+ul { padding-left: 22px; margin: 0 0 14px; }
+li { margin: 4px 0; }
+strong { color: var(--ink); font-weight: 600; }
+a { color: var(--signal); text-underline-offset: 2px; }
+code { font-family: var(--mono); font-size: 0.86em; background: var(--g100); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.lead { font-size: 20px; color: var(--ink); }
+.note { border-left: 3px solid var(--ink); padding: 2px 0 2px 14px; margin: 18px 0; }
+.links { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 0; padding: 0; list-style: none; }
+.links a { display: inline-block; padding: 9px 16px; border-radius: 8px; border: 1px solid var(--g200); color: var(--ink); text-decoration: none; font-weight: 600; }
+.links a.ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.updated { font-family: var(--mono); font-size: 13px; color: var(--g600); }
+footer { margin-top: 56px; padding-top: 14px; border-top: 1px solid var(--g200); font-size: 14px; }
+footer p { color: var(--g600); margin: 0 0 6px; }
+@media (max-width: 520px) { h1 { font-size: 32px; } body { font-size: 16px; } }
+</style>
+</head>
+<body>
+<div class="lang" id="en" lang="en">
+<header><a class="wordmark" href="index.html">Molinova<span class="stop">.</span></a><nav aria-label="Pages"><a href="index.html">Home</a><a href="privacy.html" aria-current="page">Privacy</a><a href="terms.html">Terms</a><a class="switch" href="privacy.html#fr" hreflang="fr" lang="fr">FR</a></nav></header>
+<main>
+<p class="kicker">Privacy policy</p>
+<h1>Your data stays on your Mac.</h1>
+<p class="updated">Last updated: 3 October 2026</p>
+<p class="lead">Molinova is software that runs on your Mac. Its publisher, Kasiopa SAS, receives <strong>no data</strong> from you: there is no Molinova server, no Molinova account, no analytics and no telemetry.</p>
+<h2>Who this policy covers</h2>
+<p>Molinova reaches Gmail, Google Calendar and Google Drive through a Google app that each user creates in their own Google Cloud project. This page describes what the Molinova software does with your data, whichever Google project it runs through. The person who created that Google app, normally you, is the only one who controls it.</p>
+<h2>What Molinova accesses</h2>
+<ul>
+<li><strong>Gmail</strong>, always (<code>gmail.modify</code>): read your emails, add and remove Molinova's <code>AI/…</code> labels, archive and mark as read when you ask, and send the replies, forwards and follow-ups you click Send on. With the Drafts option (<code>gmail.compose</code>): create drafts. Molinova never deletes an email.</li>
+<li><strong>Google Calendar</strong>, only with the Calendar option (<code>calendar.events</code>, <code>calendar.calendarlist.readonly</code>, <code>calendar.app.created</code>): list your calendars, read their events, create a family calendar and the events you confirm, and answer invitations.</li>
+<li><strong>Google Drive</strong>, only for the accounts you connect to it (<code>drive.readonly</code>, read-only): the names, folders and dates of your files; for the folders you include, each document is downloaded to your Mac's temporary folder so that its text can be read on your Mac (including by OCR), then the file is deleted. Molinova never deletes, moves, renames, shares or modifies a document.</li>
+<li><strong>WhatsApp</strong>, optional: a copy of the WhatsApp Desktop database on your Mac, read locally and read-only. Molinova never connects to WhatsApp's servers.</li>
+<li><strong>Telegram</strong>, optional: the messages exchanged with your private bot.</li>
+<li><strong>What you type</strong>: your name and addresses, the household context (names, schools, activities), your categories and rules.</li>
+</ul>
+<h2>Where it is stored</h2>
+<p>Only on your Mac, in Molinova's data folder (<code>~/Library/Application Support/Molinova</code>): the database, the settings, your Google sign-in tokens (readable only by your macOS user) and your keys (encrypted with the macOS Keychain). None of it is sent to the publisher.</p>
+<h2>What leaves your Mac, and where to</h2>
+<ul>
+<li><strong>Google</strong>: calls to the Gmail, Google Calendar and Google Drive APIs, made with your own Google app.</li>
+<li><strong>The AI provider</strong>, through Vercel AI Gateway with <strong>your own key</strong>, with zero data retention requested on every call (on by default): for each email, the sender, subject, date and beginning of the body (up to 1,500 characters); the text of an email in which a date or a task was spotted (up to 5,000 characters); the WhatsApp conversations you chose to follow, with their identifiers (for a one-to-one chat, the phone number); your messages to the Telegram bot and what it reads to answer; your household context and examples from your corrections; for a draft you ask for, the email concerned and a few excerpts of your sent emails; for each Google Drive document you have Molinova classify, its name, folder, dates and the first 6,000 characters of its text (identity documents included), and for a document search, your request and the best results (with up to 1,200 characters of text, none for a document marked sensitive). With zero data retention, the providers do not store these requests and do not train on them. Your Vercel account is governed by Vercel's terms.</li>
+<li><strong>Telegram</strong>, only if you set up the bot: the digests, reminders and answers it sends to you and to the relatives you invite. It never sends a whole email: only the sender, the subject and one line.</li>
+<li><strong>GitHub</strong>, once a day from the macOS app, to check whether a new version exists. No personal data is sent.</li>
+</ul>
+<h2>Google user data: Limited Use</h2>
+<p>Molinova's use and transfer of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements. In particular:</p>
+<ul>
+<li>Google user data is used only to provide the user-facing features you see in Molinova: sorting, actions, drafts, calendar, documents and reminders.</li>
+<li>It is not transferred to anyone, except as needed to provide those features (the AI provider you configure, Telegram if you enable it), for security purposes, or to comply with applicable law.</li>
+<li>It is never used or sold for advertising, including personalised, retargeted or interest-based ads, and never sold to data brokers.</li>
+<li>It is never used to train generalised AI or machine-learning models.</li>
+<li>No human reads it. The publisher has no access to it. Nobody else reads it unless you give explicit consent (for example by attaching an excerpt to a bug report), it is necessary for security purposes such as investigating abuse, or it is required by law.</li>
+</ul>
+<h2>Your control</h2>
+<ul>
+<li>Remove Molinova's access to your Google account at any time: <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>, then remove your app.</li>
+<li>Turn Google Drive, WhatsApp and Telegram off in Molinova's settings.</li>
+<li>Delete everything Molinova stored by deleting its data folder (see "Uninstalling" in the <a href="https://github.com/kasiopajg/molinova#updating-and-uninstalling">README</a>).</li>
+</ul>
+<h2>Changes and contact</h2>
+<p>Changes to this page are published in the <a href="https://github.com/kasiopajg/molinova">GitHub repository</a>, with their history. Questions: open an issue at <a href="https://github.com/kasiopajg/molinova/issues">github.com/kasiopajg/molinova/issues</a>. Security problems: report them privately through a <a href="https://github.com/kasiopajg/molinova/security/advisories/new">GitHub security advisory</a>.</p>
+</main>
+<footer><p>Molinova is an independent open-source project by Kasiopa SAS, under the MIT License. It is not affiliated with Google, Vercel, WhatsApp or Telegram.</p><p><a href="https://github.com/kasiopajg/molinova">Source code</a> · <a href="https://github.com/kasiopajg/molinova/issues">Contact (GitHub issues)</a></p></footer>
+</div>
+<div class="lang" id="fr" lang="fr">
+<header><a class="wordmark" href="index.html#fr">Molinova<span class="stop">.</span></a><nav aria-label="Pages"><a href="index.html#fr">Accueil</a><a href="privacy.html#fr" aria-current="page">Confidentialité</a><a href="terms.html#fr">Conditions</a><a class="switch" href="privacy.html#en" hreflang="en" lang="en">EN</a></nav></header>
+<main>
+<p class="kicker">Politique de confidentialité</p>
+<h1>Tes données restent sur ton Mac.</h1>
+<p class="updated">Dernière mise à jour : 3 octobre 2026</p>
+<p class="lead">Molinova est un logiciel qui tourne sur ton Mac. Son éditeur, Kasiopa SAS, ne reçoit <strong>aucune donnée</strong> de ta part : il n'y a ni serveur Molinova, ni compte Molinova, ni statistiques, ni télémétrie.</p>
+<h2>Ce que couvre cette politique</h2>
+<p>Molinova accède à Gmail, à Google Agenda et à Google Drive par une application Google que chaque utilisateur crée dans son propre projet Google Cloud. Cette page décrit ce que le logiciel Molinova fait de tes données, quel que soit le projet Google utilisé. La personne qui a créé cette application Google, normalement toi, est la seule à la contrôler.</p>
+<h2>Ce à quoi Molinova accède</h2>
+<ul>
+<li><strong>Gmail</strong>, toujours (<code>gmail.modify</code>) : lire tes emails, poser et retirer les libellés <code>AI/…</code> de Molinova, archiver et marquer comme lu à ta demande, et envoyer les réponses, transferts et relances sur lesquels tu cliques Envoyer. Avec l'option Brouillons (<code>gmail.compose</code>) : créer des brouillons. Molinova ne supprime jamais un email.</li>
+<li><strong>Google Agenda</strong>, seulement avec l'option Agenda (<code>calendar.events</code>, <code>calendar.calendarlist.readonly</code>, <code>calendar.app.created</code>) : lister tes agendas, lire leurs événements, créer un agenda familial et les événements que tu confirmes, et répondre aux invitations.</li>
+<li><strong>Google Drive</strong>, seulement pour les comptes que tu y relies (<code>drive.readonly</code>, lecture seule) : les noms, dossiers et dates de tes fichiers ; pour les dossiers que tu inclus, chaque document est téléchargé dans le dossier temporaire de ton Mac pour que son texte y soit lu (OCR compris), puis le fichier est effacé. Molinova ne supprime, ne déplace, ne renomme, ne partage et ne modifie jamais un document.</li>
+<li><strong>WhatsApp</strong>, facultatif : une copie de la base de WhatsApp Desktop sur ton Mac, lue en local et en lecture seule. Molinova ne se connecte jamais aux serveurs de WhatsApp.</li>
+<li><strong>Telegram</strong>, facultatif : les messages échangés avec ton bot privé.</li>
+<li><strong>Ce que tu saisis</strong> : ton nom et tes adresses, le contexte du foyer (prénoms, écoles, activités), tes catégories et tes règles.</li>
+</ul>
+<h2>Où c'est conservé</h2>
+<p>Uniquement sur ton Mac, dans le dossier de données de Molinova (<code>~/Library/Application Support/Molinova</code>) : la base, les réglages, tes jetons de connexion Google (lisibles par ton utilisateur macOS seul) et tes clés (chiffrées avec le trousseau macOS). Rien n'est envoyé à l'éditeur.</p>
+<h2>Ce qui quitte ton Mac, et vers où</h2>
+<ul>
+<li><strong>Google</strong> : les appels aux API Gmail, Google Agenda et Google Drive, faits avec ta propre application Google.</li>
+<li><strong>Le fournisseur d'IA</strong>, via Vercel AI Gateway avec <strong>ta propre clé</strong>, avec la non-conservation des données demandée à chaque appel (activée par défaut) : pour chaque email, l'expéditeur, l'objet, la date et le début du texte (1 500 caractères au plus) ; le texte d'un email où une date ou une tâche a été repérée (5 000 caractères au plus) ; les conversations WhatsApp que tu as choisi de suivre, avec leurs identifiants (pour une conversation à deux, le numéro de téléphone) ; tes messages au bot Telegram et ce qu'il lit pour répondre ; le contexte du foyer et des exemples tirés de tes corrections ; pour un brouillon demandé, l'email concerné et quelques extraits de tes emails envoyés ; pour chaque document Google Drive que tu fais classer, son nom, son dossier, ses dates et les 6 000 premiers caractères de son texte (pièces d'identité comprises), et pour une recherche de document, ta demande et les meilleurs résultats (avec jusqu'à 1 200 caractères de texte, aucun pour un document jugé sensible). Sans conservation, les fournisseurs ne gardent pas ces requêtes et ne s'entraînent pas dessus. Ton compte Vercel relève des conditions de Vercel.</li>
+<li><strong>Telegram</strong>, seulement si tu configures le bot : les résumés, rappels et réponses qu'il t'envoie, ainsi qu'aux proches que tu invites. Il n'envoie jamais un email entier : seulement l'expéditeur, l'objet et une ligne.</li>
+<li><strong>GitHub</strong>, une fois par jour depuis l'app macOS, pour savoir si une nouvelle version existe. Aucune donnée personnelle n'est envoyée.</li>
+</ul>
+<h2>Données des utilisateurs Google : usage limité</h2>
+<p>L'utilisation et le transfert par Molinova des informations reçues des API Google respectent les <a href="https://developers.google.com/terms/api-services-user-data-policy">règles relatives aux données des utilisateurs des services d'API Google</a> (Google API Services User Data Policy), y compris les exigences d'usage limité (Limited Use). En particulier :</p>
+<ul>
+<li>Les données Google servent uniquement aux fonctions que tu vois dans Molinova : tri, actions, brouillons, agenda, documents et rappels.</li>
+<li>Elles ne sont transférées à personne, sauf pour fournir ces fonctions (le fournisseur d'IA que tu configures, Telegram si tu l'actives), pour des raisons de sécurité, ou pour respecter la loi.</li>
+<li>Elles ne sont jamais utilisées ni vendues à des fins publicitaires, y compris pour de la publicité personnalisée, de reciblage ou par centres d'intérêt, et jamais vendues à des courtiers en données.</li>
+<li>Elles ne servent jamais à entraîner des modèles d'IA ou d'apprentissage automatique généralistes.</li>
+<li>Aucun humain ne les lit. L'éditeur n'y a pas accès. Personne d'autre ne les lit, sauf avec ton accord explicite (par exemple si tu joins un extrait à un signalement de bug), si c'est nécessaire à la sécurité (enquête sur un abus), ou si la loi l'exige.</li>
+</ul>
+<h2>Tu gardes la main</h2>
+<ul>
+<li>Retire à tout moment l'accès de Molinova à ton compte Google : <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>, puis supprime ton application.</li>
+<li>Désactive Google Drive, WhatsApp et Telegram dans les réglages de Molinova.</li>
+<li>Efface tout ce que Molinova a enregistré en supprimant son dossier de données (voir « Désinstaller » dans le <a href="https://github.com/kasiopajg/molinova/blob/main/README.fr.md">README</a>).</li>
+</ul>
+<h2>Modifications et contact</h2>
+<p>Les modifications de cette page sont publiées dans le <a href="https://github.com/kasiopajg/molinova">dépôt GitHub</a>, avec leur historique. Une question : ouvre un ticket sur <a href="https://github.com/kasiopajg/molinova/issues">github.com/kasiopajg/molinova/issues</a>. Un problème de sécurité : signale-le en privé par un <a href="https://github.com/kasiopajg/molinova/security/advisories/new">avis de sécurité GitHub</a>.</p>
+</main>
+<footer><p>Molinova est un projet open source indépendant de Kasiopa SAS, sous licence MIT. Il n'est affilié ni à Google, ni à Vercel, ni à WhatsApp, ni à Telegram.</p><p><a href="https://github.com/kasiopajg/molinova">Code source</a> · <a href="https://github.com/kasiopajg/molinova/issues">Contact (tickets GitHub)</a></p></footer>
+</div>
+<script>
+// Navigateur en français et aucune langue choisie : la section française.
+try { if (!location.hash && /^fr\b/i.test(navigator.language || "")) location.replace("#fr"); } catch (e) {}
+</script>
+</body>
+</html>
