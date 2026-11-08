@@ -49,7 +49,7 @@
     "google-auth-library": "^11.1.0",
     "googleapis": "^181.0.0",
     "open": "^10.2.0",
-    "zod": "^4.1.11"
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "@electron/rebuild": "4.2.0",
@@ -59,7 +59,8 @@
     "electron-builder": "26.15.3",
     "tsx": "^4.20.6",
     "typescript": "^5.9.2",
-    "vitest": "^4.1.11"
+    "vite": "^7.3.7",
+    "vitest": "^4.1.12"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
