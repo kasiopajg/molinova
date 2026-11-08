@@ -6,6 +6,7 @@
   "description": "Open-source personal and family assistant for macOS: triages Gmail, reads WhatsApp locally, keeps a family calendar and tasks, files your Google Drive documents, answers on Telegram, with AI through the Vercel AI Gateway.",
   "license": "MIT",
   "author": "Kasiopa SAS",
+  "packageManager": "pnpm@10.22.0",
   "homepage": "https://github.com/kasiopajg/molinova",
   "bugs": {
     "url": "https://github.com/kasiopajg/molinova/issues"
@@ -61,13 +62,5 @@
     "typescript": "^5.9.2",
     "vite": "^7.3.7",
     "vitest": "^4.1.12"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "better-sqlite3"
-    ],
-    "overrides": {
-      "source-map-js": "^1.2.2"
-    }
   }
 }

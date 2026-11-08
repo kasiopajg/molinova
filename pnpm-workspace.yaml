@@ -1,0 +1,7 @@
+# Réglages pnpm du projet (un seul paquet, pas de sous-projets). Ici plutôt que dans le champ "pnpm" de package.json,
+# que les versions récentes de pnpm — et donc Dependabot — ne lisent plus.
+onlyBuiltDependencies:
+  - better-sqlite3
+
+overrides:
+  source-map-js: ^1.2.2
