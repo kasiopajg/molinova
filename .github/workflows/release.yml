@@ -16,7 +16,7 @@ permissions: {}
 
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: macos-15
     # Les secrets de signature vivent dans l'environnement « release », réglé avec un relecteur obligatoire :
     # aucune construction ne peut signer sans l'accord du mainteneur.
     environment: release
